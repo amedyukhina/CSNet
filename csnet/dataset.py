@@ -22,4 +22,5 @@ class CS_Dataset(Dataset):
         image = torch.from_numpy(image).unsqueeze(0)
         mask = torch.from_numpy(mask).unsqueeze(0)
 
-        return image, mask.to(torch.int64)
+        return image.to(torch.float), mask.to(torch.int64)
+
