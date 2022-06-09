@@ -22,9 +22,4 @@ class CS_Dataset(Dataset):
         image = torch.from_numpy(image).unsqueeze(0)
         mask = torch.from_numpy(mask).unsqueeze(0)
 
-        if self.transform is not None:
-            transformed = self.transform(image=image, mask=mask)
-            image = transformed["image"]
-            mask = transformed["mask"]
-
         return image, mask.to(torch.int64)
