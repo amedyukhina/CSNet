@@ -131,7 +131,7 @@ class WeightedCrossEntropyLoss(nn.Module):
     @staticmethod
     def _class_weights(inp):
         # normalize the input first
-        inp = F.softmax(inp)
+        inp = F.softmax(dim=inp)
         flattened = flatten(inp)
         nominator = (1. - flattened).sum(-1)
         denominator = flattened.sum(-1)

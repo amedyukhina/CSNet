@@ -219,5 +219,5 @@ class CSNet3D(nn.Module):
         dec1 = self.decoder1(up1)
 
         final = self.final(dec1)
-        final = F.sigmoid(final)
+        final = torch.sigmoid(final)
         return final
