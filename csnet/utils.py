@@ -1,6 +1,8 @@
 import os
 
+import numpy as np
 import pylab as plt
+import torch
 from skimage import io
 
 
@@ -36,3 +38,17 @@ def show_image_grid(images, panel_size=3):
             plt.sca(ax[j, i])
             io.imshow(images[i][j].cpu().numpy().transpose(1, 2, 3, 0).max(0))
     plt.tight_layout()
+
+
+def save_model(net, epoch, model_path, model_name):
+    fn_out = os.path.join(model_path, model_name, rf"{model_name}_{epoch}.pkl")
+    torch.save(net, fn_out)
+    print(rf"Saved model to: {fn_out}")
+
+
+def numeric_score(pred, gt):
+    fp = float(np.sum((pred > 0) & (gt == 0)))
+    fn = float(np.sum((pred == 0) & (gt > 0)))
+    tp = float(np.sum((pred > 0) & (gt > 0)))
+    tn = float(np.sum((pred == 0) & (gt == 0)))
+    return fp, fn, tp, tn
