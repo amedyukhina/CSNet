@@ -17,8 +17,8 @@ class CS_Dataset(Dataset):
         image = io.imread(self.image_fns[idx])
         mask = io.imread(self.mask_fns[idx])
 
-        image = image / image.max()
-        mask = mask / mask.max()
+        image = image * 1. / image.max()
+        mask = mask * 1. / mask.max()
         image = torch.from_numpy(image).unsqueeze(0)
         mask = torch.from_numpy(mask).unsqueeze(0)
 
