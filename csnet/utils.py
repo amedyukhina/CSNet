@@ -36,7 +36,10 @@ def show_image_grid(images, panel_size=3):
     for i in range(len(images)):
         for j in range(len(images[0])):
             plt.sca(ax[j, i])
-            io.imshow(images[i][j].cpu().numpy().transpose(1, 2, 3, 0).max(0))
+            img = np.moveaxis(images[i][j].cpu().numpy(), 0, -1)
+            if len(img.shape) > 3:
+                img = img.max(0)
+            io.imshow(img)
     plt.tight_layout()
 
 
