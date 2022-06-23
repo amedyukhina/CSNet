@@ -20,6 +20,7 @@ setup(
         'numpy',
         'pytest',
         'wandb',
+        'tqdm',
         'torch>=1.10',
         'matplotlib',
         'scikit-image',
