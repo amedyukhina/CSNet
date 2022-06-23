@@ -58,5 +58,5 @@ For the full list of options, run:
 python scripts/predict.py --help
 ```
 
-Jupyter Notebook version of these scripts are also [available](notebooks).
+Jupyter Notebook versions of these scripts are also [available](notebooks).
 
