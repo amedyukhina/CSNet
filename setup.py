@@ -23,5 +23,6 @@ setup(
         'torch>=1.10',
         'matplotlib',
         'scikit-image',
+        'cs_sim @ git+https://github.com/amedyukhina/CS-Sim.git',
     ],
 )
