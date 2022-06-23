@@ -23,4 +23,3 @@ class CS_Dataset(Dataset):
         mask = torch.from_numpy(mask).unsqueeze(0)
 
         return image.to(torch.float), mask.to(torch.int64)
-

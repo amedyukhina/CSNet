@@ -45,6 +45,7 @@ def show_image_grid(images, panel_size=3):
 
 def save_model(net, epoch, model_path, model_name):
     fn_out = os.path.join(model_path, model_name, rf"{model_name}_{epoch}.pkl")
+    os.makedirs(os.path.join(model_path, model_name), exist_ok=True)
     torch.save(net, fn_out)
     print(rf"Saved model to: {fn_out}")
 
@@ -55,3 +56,7 @@ def numeric_score(pred, gt):
     tp = float(np.sum((pred > 0) & (gt > 0)))
     tn = float(np.sum((pred == 0) & (gt == 0)))
     return fp, fn, tp, tn
+
+
+def get_device():
+    return torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')

@@ -26,3 +26,11 @@ def data_paths():
 
     yield dir_img, dir_gt
     shutil.rmtree(path)
+
+
+@pytest.fixture(scope='module')
+def model_path():
+    path = tempfile.mkdtemp()
+    os.makedirs(path, exist_ok=True)
+    yield path
+    shutil.rmtree(path)
