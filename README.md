@@ -50,7 +50,7 @@ python scripts/train.py --help
 python scripts/predict.py \
     --input-dir data/test/img/ \
     --model-path model/MODEL_NAME/MODEL_CHECKPOINT.pkl \
-    ---output-dir predictions/
+    --output-dir predictions/
 ```
 
 For the full list of options, run:
