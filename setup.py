@@ -9,6 +9,10 @@ setup(
     author="Anna Medyukhina",
     author_email='anna.medyukhina@gmail.com',
     packages=['csnet',
+              'csnet.models',
+              'csnet.losses',
+              'csnet.utils',
+              'csnet.transforms'
               ],
     license='MIT',
     include_package_data=True,
@@ -24,6 +28,7 @@ setup(
         'torch>=1.10',
         'matplotlib',
         'scikit-image',
+        'monai',
         'cs_sim @ git+https://github.com/amedyukhina/CS-Sim.git',
     ],
 )

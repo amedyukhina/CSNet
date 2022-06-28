@@ -1,18 +1,6 @@
-import os
-
 import numpy as np
 import pylab as plt
-import torch
 from skimage import io
-
-
-def get_paired_file_list(dir1, dir2):
-    files = os.listdir(dir1)
-    files1 = [os.path.join(dir1, fn) for fn in files
-              if fn in os.listdir(dir2)]
-    files2 = [os.path.join(dir2, fn) for fn in files
-              if fn in os.listdir(dir2)]
-    return files1, files2
 
 
 def show_image_grid(images, panel_size=3):
@@ -43,20 +31,12 @@ def show_image_grid(images, panel_size=3):
     plt.tight_layout()
 
 
-def save_model(net, epoch, model_path, model_name):
-    fn_out = os.path.join(model_path, model_name, rf"{model_name}_{epoch}.pkl")
-    os.makedirs(os.path.join(model_path, model_name), exist_ok=True)
-    torch.save(net, fn_out)
-    print(rf"Saved model to: {fn_out}")
+def plot_projections(imgs, panel_size=3):
+    imgs = [img.numpy() for img in imgs]
 
-
-def numeric_score(pred, gt):
-    fp = float(np.sum((pred > 0) & (gt == 0)))
-    fn = float(np.sum((pred == 0) & (gt > 0)))
-    tp = float(np.sum((pred > 0) & (gt > 0)))
-    tn = float(np.sum((pred == 0) & (gt == 0)))
-    return fp, fn, tp, tn
-
-
-def get_device():
-    return torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+    fig, ax = plt.subplots(3, len(imgs), figsize=(2 * panel_size, 3 * panel_size))
+    for i in range(3):
+        for j in range(len(imgs)):
+            plt.sca(ax[i, j])
+            io.imshow(imgs[j].max(i))
+    plt.tight_layout()
