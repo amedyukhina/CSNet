@@ -48,6 +48,8 @@ def train(train_dl, val_dl, model, loss_function, metric, config, log_tensorboar
     tbwriter = None
     if log_tensorboard:
         tbwriter = SummaryWriter(log_dir=os.path.join(config.model_path, 'logs'))
+        imgs = __get_batch_data(next(iter(train_dl)), device=device)[0]
+        tbwriter.add_graph(model, imgs)
 
     for epoch in range(config.epochs):
 
