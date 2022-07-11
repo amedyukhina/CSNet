@@ -21,7 +21,7 @@ def get_model(config):
             spatial_dims=3,
             in_channels=1,
             out_channels=2,
-            channels=config.model_channels,
+            channels=config.n_channels,
             strides=(2,) * (len(config.n_channels) - 1),
             num_res_units=config.num_res_units,
             norm=Norm.BATCH,
