@@ -72,8 +72,8 @@ if __name__ == '__main__':
     config.model_path = os.path.join(config.model_path, get_model_name(config.log_progress))
 
     # Save training parameters
-    os.makedirs(config['model_path'], exist_ok=True)
-    with open(os.path.join(config['model_path'], 'config.json'), 'w') as f:
+    os.makedirs(config.model_path, exist_ok=True)
+    with open(os.path.join(config.model_path, 'config.json'), 'w') as f:
         json.dump(vars(config), f, indent=4)
 
     # Setup model, loss, and metric
@@ -107,7 +107,7 @@ if __name__ == '__main__':
     dice_metric = DiceMetric(include_background=False, reduction="mean")
 
     # Setup data loaders
-    
+
     # Train and validation transforms
     train_tr, val_tr = get_default_train_transforms(roi_size=config.roi_size)
 
