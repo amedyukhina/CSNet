@@ -6,13 +6,10 @@ import wandb
 from monai.data import CacheDataset, DataLoader
 from monai.losses import DiceLoss
 from monai.metrics import DiceMetric
-from monai.networks.layers import Norm
-from monai.networks.nets import UNet
 
-from csnet.models.csnet import CSNet
-from csnet.models.csnet_orig import CSNetOrig
 from csnet.transforms.default import get_default_train_transforms
 from csnet.utils import get_data_dict, get_model_name
+from csnet.utils.model import get_model
 from csnet.utils.train import train
 
 if __name__ == '__main__':
@@ -81,32 +78,7 @@ if __name__ == '__main__':
         json.dump(vars(config), f, indent=4)
 
     # Setup model, loss, and metric
-    if config.model.lower() == 'unet':
-        net = UNet(
-            spatial_dims=3,
-            in_channels=1,
-            out_channels=2,
-            channels=config.n_channels,
-            strides=(2,) * (len(config.n_channels) - 1),
-            num_res_units=config.num_res_units,
-            norm=Norm.BATCH,
-        )
-    elif config.model.lower() == 'csnet':
-        net = CSNet(
-            spatial_dims=3,
-            in_channels=1,
-            out_channels=2,
-            channels=config.model_channels,
-            strides=(2,) * (len(config.n_channels) - 1),
-            num_res_units=config.num_res_units,
-            norm=Norm.BATCH,
-        )
-    elif config.model.lower() == 'csnet_orig':
-        net = CSNetOrig(2, 1)
-    else:
-        raise NotImplementedError(
-            rf'{config.model} is an invalid model; must be one of ["unet", "csnet", "csnet_orig"]')
-
+    net = get_model(config)
     loss_function = DiceLoss(to_onehot_y=True, softmax=True)
     dice_metric = DiceMetric(include_background=False, reduction="mean")
 
