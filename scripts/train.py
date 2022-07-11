@@ -2,7 +2,6 @@ import argparse
 import json
 import os
 
-import numpy as np
 import wandb
 from monai.data import CacheDataset, DataLoader
 from monai.losses import DiceLoss
@@ -34,6 +33,8 @@ if __name__ == '__main__':
                         help='Number of channels in each UNet layers, separated by ","')
     parser.add_argument('-r', '--num-res-units', type=int, default=1,
                         help='Number of residual units in each block of Unet and CSNet')
+    parser.add_argument('-s', '--roi-size', type=str, default="32,64,64",
+                        help='Number of channels in each UNet layers, separated by ","')
     parser.add_argument('-mp', '--model-path', type=str,
                         help='Directory for model checkpoints', default='model')
     parser.add_argument('-e', '--epochs', type=int, default=20,
@@ -47,12 +48,15 @@ if __name__ == '__main__':
                         help='Factor parameter for ReduceOnPlateau learning rate scheduler')
     parser.add_argument('-p', '--patience', type=int, default=10,
                         help='Patience parameter for ReduceOnPlateau learning rate scheduler')
+    parser.add_argument('-mt', '--metric-name', default='Dice Metric',
+                        help='Metric for accuracy calculation')
     parser.add_argument('-pr', '--wandb-project', type=str, default='',
                         help='wandb project name')
     parser.add_argument('-log', '--log-progress', action='store_true')
 
     config = parser.parse_args()
-    config.n_channels = np.int_(config.n_channels.split(','))
+    config.n_channels = [int(i) for i in config.n_channels.split(',')]
+    config.roi_size = [int(i) for i in config.roi_size.split(',')]
 
     print('\nThe following are the parameters that will be used:')
     print(vars(config))
@@ -82,9 +86,9 @@ if __name__ == '__main__':
             spatial_dims=3,
             in_channels=1,
             out_channels=2,
-            channels=config.model_channels,
-            strides=(2,) * (len(config.model_channels) - 1),
-            num_res_units=config.num_residual_units,
+            channels=config.n_channels,
+            strides=(2,) * (len(config.n_channels) - 1),
+            num_res_units=config.num_res_units,
             norm=Norm.BATCH,
         )
     elif config.model.lower() == 'csnet':
@@ -93,8 +97,8 @@ if __name__ == '__main__':
             in_channels=1,
             out_channels=2,
             channels=config.model_channels,
-            strides=(2,) * (len(config.model_channels) - 1),
-            num_res_units=config.num_residual_units,
+            strides=(2,) * (len(config.n_channels) - 1),
+            num_res_units=config.num_res_units,
             norm=Norm.BATCH,
         )
     elif config.model.lower() == 'csnet_orig':
