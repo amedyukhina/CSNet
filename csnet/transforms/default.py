@@ -14,7 +14,7 @@ def get_default_train_transforms(roi_size, return_val=True, image_key='image', l
 
     default_train_transforms = Compose(
         [
-            get_LoadAndConvertTransform(image_key, label_key=None if instance else label_key),
+            get_LoadAndConvertTransform(image_key, label_key, instance=instance),
             RandCropByPosNegLabeld(
                 keys=keys, label_key=label_key, image_key=image_key, spatial_size=roi_size,
                 pos=1, neg=1, num_samples=4, image_threshold=0,
@@ -29,7 +29,7 @@ def get_default_train_transforms(roi_size, return_val=True, image_key='image', l
 
     default_val_transforms = Compose(
         [
-            get_LoadAndConvertTransform(image_key, label_key=None if instance else label_key),
+            get_LoadAndConvertTransform(image_key, label_key, instance=instance),
             RandCropByPosNegLabeld(
                 keys=keys, label_key=label_key, image_key=image_key, spatial_size=roi_size,
                 pos=1, neg=1, num_samples=4, image_threshold=0,
