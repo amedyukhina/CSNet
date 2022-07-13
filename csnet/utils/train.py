@@ -29,7 +29,7 @@ def __detatch_norm_project(img):
 def __log_images(writer, input_img, output_img, target_img, iteration):
     input_img, output_img, target_img = [__detatch_norm_project(img)
                                          for img in [input_img, output_img, target_img]]
-    writer.add_image('input', input_img, iteration, dataformats='HW')
+    writer.add_image('input', input_img * 255 / np.max(input_img), iteration, dataformats='HW')
     writer.add_image('output', output_img, iteration, dataformats='HW')
     writer.add_image('target', target_img, iteration, dataformats='HW')
 
