@@ -18,9 +18,9 @@ def __get_batch_data(batch_data, image_key='image', label_key='label', device=No
 
 
 def __detatch_norm_project(img):
-    img = img.detach().cpu().numpy()
+    img = img.detach().cpu().numpy().astype(np.float64)
     img = img - np.min(img)
-    img = img * 255. / img.max()
+    img = img * 255. / np.max(img)
     if len(img.shape) > 2:
         img = img.max(0)
     return img.astype(np.uint8)
@@ -29,7 +29,7 @@ def __detatch_norm_project(img):
 def __log_images(writer, input_img, output_img, target_img, iteration):
     input_img, output_img, target_img = [__detatch_norm_project(img)
                                          for img in [input_img, output_img, target_img]]
-    writer.add_image('input', input_img * 255 / np.max(input_img), iteration, dataformats='HW')
+    writer.add_image('input', input_img, iteration, dataformats='HW')
     writer.add_image('output', output_img, iteration, dataformats='HW')
     writer.add_image('target', target_img, iteration, dataformats='HW')
 
