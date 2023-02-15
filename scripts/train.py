@@ -49,6 +49,9 @@ if __name__ == '__main__':
                         help='Metric for accuracy calculation')
     parser.add_argument('-pr', '--wandb-project', type=str, default='',
                         help='wandb project name')
+    
+    parser.add_argument('-wkey', '--wandb-key', type=str, default=None,
+                        help='wandb api key filename')
     parser.add_argument('-log', '--log-progress', action='store_true')
 
     config = parser.parse_args()
@@ -60,8 +63,8 @@ if __name__ == '__main__':
     print('\n')
 
     # Initialize wandb project
-    if config.log_progress:
-        with open('/home/amedyukh/.wandb_api_key') as f:
+    if config.log_progress and config.wandb_key is not None:
+        with open(config.wandb_key) as f:
             key = f.read()
         os.environ['WANDB_API_KEY'] = key
     else:
