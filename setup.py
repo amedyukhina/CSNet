@@ -20,6 +20,7 @@ setup(
     test_suite='csnet.tests',
 
     install_requires=[
+        'ipykernel',
         'scipy',
         'numpy',
         'pytest',
