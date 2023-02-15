@@ -30,6 +30,7 @@ setup(
         'matplotlib',
         'scikit-image',
         'monai',
+        'tensorboard',
         'cs_sim @ git+https://github.com/amedyukhina/CS-Sim.git',
     ],
 )
