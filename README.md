@@ -8,9 +8,9 @@ Re-implementation of the 3D version of the [original CS-Net](https://github.com/
 ## Installation
 
 ```angular2html
-conda create -n csnet python=3.9 \
-conda activate csnet \
-pip install monai[all] \
+conda create -n csnet python=3.9 
+conda activate csnet 
+pip install monai[all] 
 pip install git+https://github.com/amedyukhina/CSNet.git
 ```
 
