@@ -3,7 +3,7 @@ import os
 
 import wandb
 
-from ..utils.train import train
+from csnet.utils.train import train
 
 
 def test_training(loaders, config, unet_setup):

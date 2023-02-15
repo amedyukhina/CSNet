@@ -4,7 +4,7 @@ import tempfile
 
 import pytest
 from cs_sim.batch.batch_corrupt import batch_corrupt_image
-from cs_sim.batch.batch_synth import batch_generate_img_with_lines
+from cs_sim.batch.batch_synth import batch_generate_img_with_filaments
 from monai.data import CacheDataset, DataLoader
 from monai.losses import DiceLoss
 from monai.metrics import DiceMetric
@@ -24,8 +24,8 @@ def data_paths():
     os.makedirs(dir_gt, exist_ok=True)
     os.makedirs(dir_img, exist_ok=True)
 
-    batch_generate_img_with_lines(n_img=10, n_jobs=1, dir_out=dir_gt,
-                                  imgshape=(16, 64, 64), n_lines=10, maxval=255)
+    batch_generate_img_with_filaments(n_img=10, n_jobs=1, dir_out=dir_gt,
+                                      imgshape=(16, 64, 64), n_filaments=10, maxval=255)
     batch_corrupt_image(dir_gt, dir_img, n_jobs=1,
                         corruption_steps=[
                             ('poisson_noise', {'snr': 2}),

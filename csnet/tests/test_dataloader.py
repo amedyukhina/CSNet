@@ -1,7 +1,7 @@
 from monai.data import DataLoader, Dataset
 
-from ..transforms.default import get_default_train_transforms
-from ..utils import get_data_dict
+from csnet.transforms.default import get_default_train_transforms
+from csnet.utils import get_data_dict
 
 
 def test_dataloader(data_paths):

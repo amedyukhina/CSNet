@@ -1,6 +1,6 @@
 import os
 
-from ..utils.predict import predict
+from csnet.utils.predict import predict
 
 
 def test_prediction(data_paths, unet_setup, output_path):
