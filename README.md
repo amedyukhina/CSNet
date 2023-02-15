@@ -2,6 +2,9 @@
 
 Re-implementation of the 3D version of the [original CS-Net](https://github.com/iMED-Lab/CS-Net) using [MONAI framework](https://github.com/Project-MONAI/MONAI). 
 
+
+<img src="example.png" width="500">
+
 ## Installation
 
 ```angular2html
